@@ -134,14 +134,7 @@ class Vehicle {
   void pair(Keys_Role role = Keys_Role_ROLE_OWNER);
   void regenerate_key();
 
-  void start_driving();
-
-  // ---------- 新增：授权挑战与响应 ----------
-  void set_authorization_challenge_callback(std::function<void(const std::vector<uint8_t> &)> cb) {
-    authorization_challenge_callback_ = std::move(cb);
-  }
-  bool sign_challenge(const std::vector<uint8_t> &challenge, std::vector<uint8_t> &signature_out);
-  bool send_authorization_response(const std::vector<uint8_t> &signature);
+  void start_driving();   // 保留 start_driving
 
   bool is_connected() const { return is_connected_; }
   void set_connected(bool connected);
@@ -187,9 +180,6 @@ class Vehicle {
   bool is_connected_ = false;
   bool is_vehicle_awake_ = false;
   bool recovery_attempted_ = false;
-
-  // ---------- 新增回调成员 ----------
-  std::function<void(const std::vector<uint8_t> &)> authorization_challenge_callback_;
 
   static constexpr size_t FRAME_HEADER_SIZE = 2;
   static constexpr size_t MAX_MESSAGE_SIZE = 2048;
