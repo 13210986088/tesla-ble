@@ -761,14 +761,7 @@ void TeslaBLE::Vehicle::handle_vcsec_message_(const UniversalMessage_RoutableMes
       }
       break;
     // ---------- 修改 whitelistInfo 分支 ----------
-    case VCSEC_FromVCSECMessage_whitelistInfo_tag: {
-      LOG_INFO("Received VCSEC whitelistInfo");
-      auto &wl_info = vcsec_msg.sub_message.whitelistInfo;
-      if (wl_info.has_signedChallenge && authorization_challenge_callback_) {
-        std::vector<uint8_t> challenge(wl_info.signedChallenge.bytes,
-                                       wl_info.signedChallenge.bytes + wl_info.signedChallenge.size);
-        authorization_challenge_callback_(challenge);
-      }
+    case VCSEC_FromVCSECMessage_whitelistInfo_tag:
       break;
     }
     case VCSEC_FromVCSECMessage_nominalError_tag:
